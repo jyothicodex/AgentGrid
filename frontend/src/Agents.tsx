@@ -7,41 +7,49 @@ import {
 
 export default function Agents() {
   const agents = [
-    { name: "CEO Agent", role: "Chief Orchestrator", status: "Idle", desc: "Coordinates cross-functional tasks.", color: "text-indigo-500", bg: "bg-indigo-50", statusColor: "text-slate-500", statusBg: "bg-slate-100", dotColor: "bg-slate-400" },
-    { name: "Finance Agent", role: "CFO", status: "Idle", desc: "Manages budget and runway.", color: "text-green-500", bg: "bg-green-50", statusColor: "text-slate-500", statusBg: "bg-slate-100", dotColor: "bg-slate-400" },
+    { name: "CEO Agent", role: "Chief Orchestrator", status: "Working...", desc: "Coordinates cross-functional tasks.", color: "text-indigo-500", bg: "bg-indigo-50", statusColor: "text-indigo-600", statusBg: "bg-indigo-100 border border-indigo-200", dotColor: "bg-indigo-500 animate-pulse" },
+    { name: "Legal Agent", role: "General Counsel", status: "Working...", desc: "Drafts contracts and agreements.", color: "text-amber-500", bg: "bg-amber-50", statusColor: "text-amber-600", statusBg: "bg-amber-100 border border-amber-200", dotColor: "bg-amber-500 animate-pulse" },
     { name: "Hiring Agent", role: "Head of Talent", status: "Working...", desc: "Sources and screens candidates.", color: "text-purple-500", bg: "bg-purple-50", statusColor: "text-purple-600", statusBg: "bg-purple-100 border border-purple-200", dotColor: "bg-purple-500 animate-pulse" },
-    { name: "Marketing Agent", role: "CMO", status: "Idle", desc: "Drafts GTM campaigns.", color: "text-pink-500", bg: "bg-pink-50", statusColor: "text-slate-500", statusBg: "bg-slate-100", dotColor: "bg-slate-400" }
+    { name: "Marketing Agent", role: "CMO", status: "Working...", desc: "Drafts GTM campaigns.", color: "text-pink-500", bg: "bg-pink-50", statusColor: "text-pink-600", statusBg: "bg-pink-100 border border-pink-200", dotColor: "bg-pink-500 animate-pulse" }
   ];
 
   return (
     <div className="flex h-screen bg-[#F8FAFC] text-slate-900 font-sans overflow-hidden">
       {/* Sidebar */}
-      <aside className="w-64 bg-[#0F172A] text-slate-300 flex flex-col justify-between shadow-2xl z-20 shrink-0">
+      <aside className="w-64 bg-white/80 backdrop-blur-2xl border-r border-slate-200/80 flex flex-col justify-between z-20 shrink-0">
         <div className="flex flex-col h-full overflow-y-auto custom-scrollbar">
-          <div className="p-6 flex items-center space-x-3 mb-2">
-            <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-600/20">
+          <div className="p-6 flex items-center space-x-3 mb-4">
+            <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-500/30">
               <Sparkles size={20} className="text-white" />
             </div>
             <div>
-              <h1 className="text-white font-bold text-lg leading-tight">AgentGrid</h1>
-              <p className="text-xs text-indigo-400 font-medium">AI Chief of Staff</p>
+              <h1 className="text-slate-800 font-extrabold text-lg leading-tight tracking-tight">AgentGrid</h1>
+              <p className="text-[11px] text-indigo-500 font-bold uppercase tracking-wider">AI Chief of Staff</p>
             </div>
           </div>
           
-          <nav className="flex-1 px-4 space-y-1">
-            <Link to="/dashboard" className="flex items-center space-x-3 px-4 py-2.5 text-slate-400 hover:text-white hover:bg-white/10 active:scale-95 rounded-lg transition-all duration-150 text-sm font-medium">
+          <nav className="flex-1 px-4 space-y-2 mt-2">
+            <Link to="/dashboard" className="flex items-center space-x-3 px-4 py-3 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50/80 active:scale-95 rounded-xl transition-all duration-300 hover:translate-x-2 text-sm font-semibold">
               <Terminal size={18} />
               <span>Dashboard</span>
             </Link>
-            <Link to="/roadmap" className="flex items-center space-x-3 px-4 py-2.5 text-slate-400 hover:text-white hover:bg-white/10 active:scale-95 rounded-lg transition-all duration-150 text-sm font-medium">
+            <Link to="/roadmap" className="flex items-center space-x-3 px-4 py-3 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50/80 active:scale-95 rounded-xl transition-all duration-300 hover:translate-x-2 text-sm font-semibold">
               <Target size={18} />
               <span>Roadmap</span>
             </Link>
-            <a href="#" className="flex items-center space-x-3 px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white rounded-lg shadow-md shadow-indigo-600/20 font-medium transition-all duration-150">
-              <Bot size={18} />
-              <span>Agents</span>
-            </a>
-            <Link to="/documents" className="flex items-center space-x-3 px-4 py-2.5 text-slate-400 hover:text-white hover:bg-white/10 active:scale-95 rounded-lg transition-all duration-150 text-sm font-medium">
+            <div className="space-y-1">
+              <a href="#" className="flex items-center space-x-3 px-4 py-3 bg-indigo-600 text-white active:scale-95 rounded-xl shadow-md shadow-indigo-600/20 font-semibold transition-all duration-150">
+                <Bot size={18} />
+                <span>Agents</span>
+              </a>
+              <div className="pl-11 pr-4 space-y-1 pt-1 pb-2">
+                <Link to="/chat/ceo" className="block px-3 py-2 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50/80 rounded-lg transition-all duration-300 hover:translate-x-1 text-xs font-bold">CEO Agent</Link>
+                <Link to="/chat/legal" className="block px-3 py-2 text-slate-500 hover:text-amber-600 hover:bg-amber-50/80 rounded-lg transition-all duration-300 hover:translate-x-1 text-xs font-bold">Legal Agent</Link>
+                <Link to="/chat/marketing" className="block px-3 py-2 text-slate-500 hover:text-pink-600 hover:bg-pink-50/80 rounded-lg transition-all duration-300 hover:translate-x-1 text-xs font-bold">Marketing Agent</Link>
+                <Link to="/chat/hiring" className="block px-3 py-2 text-slate-500 hover:text-purple-600 hover:bg-purple-50/80 rounded-lg transition-all duration-300 hover:translate-x-1 text-xs font-bold">Hiring Agent</Link>
+              </div>
+            </div>
+            <Link to="/documents" className="flex items-center space-x-3 px-4 py-3 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50/80 active:scale-95 rounded-xl transition-all duration-300 hover:translate-x-2 text-sm font-semibold">
               <FileText size={18} />
               <span>Documents</span>
             </Link>

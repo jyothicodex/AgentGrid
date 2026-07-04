@@ -69,27 +69,37 @@ export default function Documents() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               
               {docs.map((doc, i) => (
-                <div key={i} className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition-shadow group">
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center border border-slate-100">
-                      {doc.icon}
+                <div 
+                  key={i} 
+                  className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:shadow-xl hover:shadow-indigo-500/10 hover:-translate-y-1 hover:border-indigo-200 transition-all duration-300 group relative overflow-hidden animate-slide-up"
+                  style={{ animationDelay: `${i * 100}ms` }}
+                >
+                  {/* Subtle gradient hover effect */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-indigo-50/0 to-indigo-50/0 group-hover:from-indigo-50/50 group-hover:to-purple-50/50 transition-colors duration-500 pointer-events-none" />
+
+                  <div className="relative z-10">
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center border border-slate-100 group-hover:scale-110 group-hover:shadow-sm transition-transform duration-300">
+                        {doc.icon}
+                      </div>
+                      <div className="flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <button className="p-2 bg-white text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors border border-slate-100 shadow-sm">
+                          <Eye size={16} />
+                        </button>
+                        <button className="p-2 bg-white text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors border border-slate-100 shadow-sm">
+                          <Download size={16} />
+                        </button>
+                      </div>
                     </div>
-                    <div className="flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <button className="p-2 bg-slate-50 text-slate-600 hover:text-indigo-600 rounded-lg transition-colors">
-                        <Eye size={16} />
-                      </button>
-                      <button className="p-2 bg-slate-50 text-slate-600 hover:text-indigo-600 rounded-lg transition-colors">
-                        <Download size={16} />
-                      </button>
+                    <h3 className="font-bold text-slate-800 text-lg group-hover:text-indigo-900 transition-colors">{doc.name}</h3>
+                    <div className="flex items-center mt-2 space-x-3 text-xs text-slate-500 font-medium">
+                      <span className="bg-slate-100 px-2 py-1 rounded text-slate-600 group-hover:bg-indigo-100 group-hover:text-indigo-700 transition-colors">{doc.type}</span>
+                      <span>{doc.size}</span>
                     </div>
-                  </div>
-                  <h3 className="font-bold text-slate-800 text-lg">{doc.name}</h3>
-                  <div className="flex items-center mt-2 space-x-3 text-xs text-slate-500 font-medium">
-                    <span className="bg-slate-100 px-2 py-1 rounded">{doc.type}</span>
-                    <span>{doc.size}</span>
-                  </div>
-                  <div className="mt-4 pt-4 border-t border-slate-100 text-xs text-slate-400">
-                    Generated: {doc.date}
+                    <div className="mt-4 pt-4 border-t border-slate-100 text-xs text-slate-400 flex justify-between items-center group-hover:border-indigo-100 transition-colors">
+                      <span>Generated: {doc.date}</span>
+                      <Sparkles size={14} className="text-indigo-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </div>
                   </div>
                 </div>
               ))}

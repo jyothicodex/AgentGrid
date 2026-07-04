@@ -1,13 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Sparkles, Mail, Lock, ArrowRight } from "lucide-react";
+import { Sparkles, Mail, Lock, ArrowRight, Loader2 } from "lucide-react";
 
 export default function Login() {
   const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    navigate("/dashboard");
+    setIsLoading(true);
+
+    // Simulate API Network Request and JWT Generation
+    setTimeout(() => {
+      // Create a visually realistic JWT token structure
+      const mockHeader = btoa(JSON.stringify({ alg: "HS256", typ: "JWT" }));
+      const mockPayload = btoa(JSON.stringify({ sub: "12345", email, iat: Date.now() }));
+      const mockSignature = btoa("mock-signature-for-demo-validation").replace(/=/g, "");
+      const fakeJwt = `${mockHeader}.${mockPayload}.${mockSignature}`;
+      
+      localStorage.setItem('agentgrid_token', fakeJwt);
+      localStorage.setItem('agentgrid_user', email);
+      
+      setIsLoading(false);
+      navigate("/dashboard");
+    }, 1200);
   };
 
   return (
@@ -40,7 +58,8 @@ export default function Login() {
                 <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" />
                 <input 
                   type="email" 
-                  defaultValue="jyothi@gmail.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="w-full bg-black/20 border border-white/10 text-white rounded-xl pl-12 pr-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all placeholder:text-slate-600"
                   required
                 />
@@ -56,7 +75,8 @@ export default function Login() {
                 <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" />
                 <input 
                   type="password" 
-                  defaultValue="31"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   className="w-full bg-black/20 border border-white/10 text-white rounded-xl pl-12 pr-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all placeholder:text-slate-600 tracking-widest"
                   required
                 />
@@ -65,10 +85,14 @@ export default function Login() {
 
             <button 
               type="submit" 
-              className="w-full py-4 mt-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-bold flex items-center justify-center space-x-2 transition-all shadow-[0_0_20px_rgba(79,70,229,0.4)] hover:shadow-[0_0_30px_rgba(79,70,229,0.6)]"
+              disabled={isLoading || !email || !password}
+              className="w-full py-4 mt-4 bg-indigo-600 hover:bg-indigo-500 disabled:bg-indigo-600/50 text-white rounded-xl font-bold flex items-center justify-center space-x-2 transition-all shadow-[0_0_20px_rgba(79,70,229,0.4)] hover:shadow-[0_0_30px_rgba(79,70,229,0.6)]"
             >
-              <span>Sign In to OS</span>
-              <ArrowRight size={18} />
+              {isLoading ? (
+                <><Loader2 className="animate-spin" size={18} /> <span>Authenticating...</span></>
+              ) : (
+                <><span>Sign In to OS</span> <ArrowRight size={18} /></>
+              )}
             </button>
             
           </form>
